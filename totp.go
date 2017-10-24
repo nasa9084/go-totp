@@ -22,9 +22,9 @@ func (g *Generator) Generate() int64 {
 	now := time.Now().UTC().Unix()
 	t := (now - g.StartTime) / int64(g.TimeStep)
 	h := hotp.Generator{
-		Base32Secret: g.Secret,
-		Digit:        g.Digit,
-		Counter:      uint64(t),
+		Secret:  g.Base32Secret,
+		Digit:   g.Digit,
+		Counter: uint64(t),
 	}
 	return h.Generate()
 }
