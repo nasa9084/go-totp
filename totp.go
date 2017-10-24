@@ -16,6 +16,9 @@ type Generator struct {
 
 // Generate OTP
 func (g *Generator) Generate() int64 {
+	if g.TimeStep == 0 {
+		g.TimeStep = 30
+	}
 	now := time.Now().Unix()
 	t := (now - g.StartTime) / int64(g.TimeStep)
 	h := hotp.Generator{
