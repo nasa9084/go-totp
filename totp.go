@@ -1,6 +1,7 @@
 package totp
 
 import (
+	"encoding/base32"
 	"time"
 
 	"github.com/nasa9084/go-hotp"
@@ -8,7 +9,7 @@ import (
 
 // Generator generates Time-based One-Time Password
 type Generator struct {
-	TimeStep  uint64    // X in RFC6238
+	TimeStep  uint64 // X in RFC6238
 	StartTime int64  // T0 in RFC6238, default 0 is OK
 	Secret    string // shared secret for generate hotp
 	Digit     int
@@ -22,7 +23,7 @@ func (g *Generator) Generate() int64 {
 	now := time.Now().UTC().Unix()
 	t := (now - g.StartTime) / int64(g.TimeStep)
 	h := hotp.Generator{
-		Secret:  g.Secret,
+		Secret:  base32.StdEncoding.EncodeToString([]byte(g.Secret)),
 		Digit:   g.Digit,
 		Counter: uint64(t),
 	}
