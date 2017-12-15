@@ -1,10 +1,14 @@
 package totp
 
 import (
+	"encoding/base32"
+	"fmt"
 	"time"
 
 	"github.com/nasa9084/go-hotp"
 )
+
+const keyURITemplate = "otpauth://totp/%s:%s?issuer=%s&secret=%s&digits=%d"
 
 // Generator generates Time-based One-Time Password
 type Generator struct {
@@ -27,4 +31,9 @@ func (g *Generator) Generate() int64 {
 		Counter: uint64(t),
 	}
 	return h.Generate()
+}
+
+// URI returns TOTP key URI.
+func (g *Generator) URI(issuer, account string) string {
+	return fmt.Sprintf(keyURITemplate, issuer, account, issuer, base32.StdEncoding.EncodeToString([]byte(g.Secret)), g.Digit)
 }

@@ -34,3 +34,12 @@ func TestGenerate(t *testing.T) {
 		}
 	}
 }
+
+func TestURI(t *testing.T) {
+	uri := generator.URI("test", "user")
+	expected := "otpauth://totp/test:user?issuer=test&secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&digits=8"
+	if uri != expected {
+		t.Errorf(`"%s" != "%s"`, uri, expected)
+		return
+	}
+}
