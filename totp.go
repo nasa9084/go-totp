@@ -8,10 +8,10 @@ import (
 
 // Generator generates Time-based One-Time Password
 type Generator struct {
-	TimeStep     uint64 // X in RFC6238
-	StartTime    int64  // T0 in RFC6238, default 0 is OK
-	Base32Secret string // shared secret for generate hotp
-	Digit        int
+	TimeStep  uint64 // X in RFC6238
+	StartTime int64  // T0 in RFC6238, default 0 is OK
+	Secret    string // shared secret for generate hotp
+	Digit     int
 }
 
 // Generate OTP
@@ -22,7 +22,7 @@ func (g *Generator) Generate() int64 {
 	now := time.Now().UTC().Unix()
 	t := (now - g.StartTime) / int64(g.TimeStep)
 	h := hotp.Generator{
-		Secret:  g.Base32Secret,
+		Secret:  g.Secret,
 		Digit:   g.Digit,
 		Counter: uint64(t),
 	}

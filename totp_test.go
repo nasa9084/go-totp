@@ -8,9 +8,9 @@ import (
 )
 
 var generator = totp.Generator{
-	TimeStep:     30,
-	Base32Secret: "12345678901234567890",
-	Digit:        8,
+	TimeStep: 30,
+	Secret:   "12345678901234567890",
+	Digit:    8,
 }
 
 func TestGenerate(t *testing.T) {
