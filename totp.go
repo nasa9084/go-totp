@@ -19,6 +19,14 @@ type Generator struct {
 	Digit     int
 }
 
+// New returns new 6-digit TOTP generator.
+func New(secret string) *Generator {
+	return &Generator{
+		Secret: secret,
+		Digit:  6,
+	}
+}
+
 // Generate OTP
 func (g *Generator) Generate() int64 {
 	if g.TimeStep == 0 {
