@@ -3,6 +3,7 @@ package totp
 import (
 	"encoding/base32"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/nasa9084/go-hotp"
@@ -31,6 +32,11 @@ func (g *Generator) Generate() int64 {
 		Counter: uint64(t),
 	}
 	return h.Generate()
+}
+
+// GenerateString generates string OTP.
+func (g *Generator) GenerateString() string {
+	return fmt.Sprintf("%0"+strconv.Itoa(g.Digit)+"d", g.Generate())
 }
 
 // URI returns TOTP key URI.
