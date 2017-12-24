@@ -1,4 +1,4 @@
-go-hotp
+go-totp
 =======
 [![GoDoc](https://godoc.org/github.com/nasa9084/go-totp?status.svg)](https://godoc.org/github.com/nasa9084/go-totp)
 [![Build Status](https://travis-ci.org/nasa9084/go-totp.svg?branch=master)](https://travis-ci.org/nasa9084/go-totp)
