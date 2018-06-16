@@ -28,7 +28,7 @@ func New(secret string) *Generator {
 }
 
 // Generate OTP
-func (g *Generator) Generate() int64 {
+func (g Generator) Generate() int64 {
 	if g.TimeStep == 0 {
 		g.TimeStep = 30
 	}
@@ -43,11 +43,11 @@ func (g *Generator) Generate() int64 {
 }
 
 // GenerateString generates string OTP.
-func (g *Generator) GenerateString() string {
+func (g Generator) GenerateString() string {
 	return fmt.Sprintf("%0"+strconv.Itoa(g.Digit)+"d", g.Generate())
 }
 
 // URI returns TOTP key URI.
-func (g *Generator) URI(issuer, account string) string {
+func (g Generator) URI(issuer, account string) string {
 	return fmt.Sprintf(keyURITemplate, issuer, account, issuer, base32.StdEncoding.EncodeToString([]byte(g.Secret)), g.Digit)
 }
